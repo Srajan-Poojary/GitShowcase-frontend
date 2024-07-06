@@ -1,0 +1,56 @@
+.editorPageWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: #28282b;
+  padding-inline: 0px !important;
+
+  .editorPageContent {
+    display: flex;
+  }
+
+  .editorSection {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.sidePanel {
+  width: 300px;
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  height: calc(100vh - 60px);
+  border-right: 2.5px solid #282424;
+
+  .tab {
+    span {
+      color: white;
+      font-family: "Poppins", sans-serif;
+    }
+  }
+  :hover {
+    span {
+      color: black;
+    }
+  }
+
+  .tabContent {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    padding-top: 40px;
+  }
+}
+
+.editorPageWrapper .mantine-Drawer-content {
+  background: red;
+}
+
+@media screen and (max-width: 1200px) {
+  .sidePanel {
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,106 @@
+@mixin glassmorphism(
+  $background-color,
+  $blur-amount,
+  $border-radius,
+  $border-color
+) {
+  background: rgba($background-color, 0.2);
+  backdrop-filter: blur($blur-amount);
+  -webkit-backdrop-filter: blur($blur-amount);
+  border-radius: $border-radius;
+  border: 1px solid rgba($border-color, 0.1);
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+.heroSectionWrapper {
+  padding-top: 200px;
+  font-family: "Outfit", sans-serif;
+  position: relative;
+
+  .textSection {
+    padding: 40px 0;
+    padding-right: 40px;
+
+    .title {
+      margin-bottom: 20px;
+      color: white;
+
+      span {
+        font-weight: 300;
+        display: inline-block;
+      }
+    }
+
+    button {
+      margin-top: 40px;
+      background-color: var(--primary-color);
+      color: black;
+      border: 1px solid var(--secondary-color);
+    }
+  }
+
+  .imageSection {
+    position: relative;
+    img {
+      position: relative;
+      left: -20px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.1);
+      z-index: 20;
+      position: absolute;
+    }
+
+    @media (max-width: 750px) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    padding-top: 100px;
+  }
+
+  .inputFormContainer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    @include glassmorphism(#ffffff, 20px, 0px, #ffffff);
+    z-index: 1000;
+
+    .userNameInputForm {
+      width: 350px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+      .textInput {
+        font-family: "Outfit", sans-serif;
+      }
+
+      input {
+        font-size: 14px;
+        font-family: var(--secondary-font);
+      }
+
+      input::placeholder {
+        color: black;
+      }
+
+      button {
+        background-color: var(--primary-color);
+        color: black;
+      }
+    }
+  }
+}

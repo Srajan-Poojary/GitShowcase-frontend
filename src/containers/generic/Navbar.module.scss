@@ -1,0 +1,25 @@
+.wrapper {
+  background-color: var(--secondary-color);
+  padding: 0;
+  margin: 0;
+  border-bottom: 2.5px solid #282424;
+}
+
+.navbarContainer {
+  height: 60px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  .logo {
+    font-family: "Outfit", sans-serif;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+
+    span {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+  }
+}
