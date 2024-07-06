@@ -18,7 +18,12 @@
     align-items: center;
     justify-content: center;
     border-top: 2.5px solid #282424;
+    background-color: black;
   }
+}
+
+.tab .mantine-Tabs-list {
+  outline: 1px solid white;
 }
 
 .sidePanel {
@@ -29,6 +34,10 @@
   border-right: 2.5px solid #282424;
 
   .tab {
+    .tabList {
+      border-bottom: 2.5px solid #282424;
+      border-top: 2.5px solid #282424;
+    }
     span {
       color: white;
       font-family: "Poppins", sans-serif;

@@ -14,7 +14,9 @@ import {
   IconPalette,
   IconMenu2,
   IconSquareArrowDownFilled,
+  IconTypography,
 } from "@tabler/icons-react";
+import blueSky from "../assets/images/bluesky-bg.webp";
 import { saveAs } from "file-saver";
 import * as htmlToImage from "html-to-image";
 
@@ -36,7 +38,7 @@ const Editor = () => {
     mediumHighContribution: "hsl(132, 62%, 40%)",
     highContribution: "hsl(130, 64%, 52%)",
   });
-  const [activeImage, setActiveImage] = useState(null);
+  const [activeImage, setActiveImage] = useState(blueSky);
   const [opened, { open, close }] = useDisclosure(false);
   const iconStyle = { width: rem(12), height: rem(12) };
   const gitComponentRef = useRef();
@@ -116,7 +118,7 @@ const Editor = () => {
                 className={styles.tab}
                 variant="pills"
               >
-                <Tabs.List>
+                <Tabs.List className={styles.tabList}>
                   <Tabs.Tab
                     value="pallet"
                     leftSection={<IconPalette style={iconStyle} />}
@@ -124,9 +126,11 @@ const Editor = () => {
                   <Tabs.Tab
                     value="background"
                     leftSection={<IconBackground style={iconStyle} />}
-                  >
-                    Background
-                  </Tabs.Tab>
+                  ></Tabs.Tab>
+                  <Tabs.Tab
+                    value="typography"
+                    leftSection={<IconTypography style={iconStyle} />}
+                  ></Tabs.Tab>
                 </Tabs.List>
 
                 <Tabs.Panel value="pallet" className={styles.tabContent}>
@@ -173,15 +177,17 @@ const Editor = () => {
                 >
                   <div className={styles.sidePanel}>
                     <Tabs
-                      defaultValue="pallet"
+                      defaultValue="Palettes"
                       className={styles.tab}
                       variant="pills"
                     >
                       <Tabs.List>
                         <Tabs.Tab
-                          value="pallet"
+                          value="Palette"
                           leftSection={<IconPalette style={iconStyle} />}
-                        ></Tabs.Tab>
+                        >
+                          Color Palettes
+                        </Tabs.Tab>
                         <Tabs.Tab
                           value="background"
                           leftSection={<IconBackground style={iconStyle} />}

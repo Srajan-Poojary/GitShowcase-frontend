@@ -13,18 +13,16 @@ import { useForm } from "@mantine/form";
 import heroImage from "../../assets/images/heroImage.webp";
 import styles from "./HeroSection.module.scss";
 import { useNavigate } from "react-router";
-import { IconX, IconCheck } from "@tabler/icons-react";
-import { Notification, rem } from "@mantine/core";
+import { IconX } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 
 import axios from "axios";
+import { config } from "../../../config";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
 
   const [isInputFormShown, setIsInputFormShown] = useState(false);
-  const [doesUserExist, setDoesUserExist] = useState(true);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -39,14 +37,13 @@ const HeroSection = () => {
     const username = data.username;
 
     try {
-      // Send a POST request to the API
+      // Send a Get request to the API
       const response = await axios.get(
-        `https://git-showcase-backend.vercel.app/api/github/user-exists/${username}`
+        `${config.backendUrl}/api/github/user-exists/${username}`
       );
 
       // Assuming the API returns a JSON with a boolean property `exists`
       if (response.data.exists) {
-        setDoesUserExist(true);
         navigate(`/editor?username=${username}`);
         // Handle logic for existing user, e.g., navigate to a user profile page
       } else {
@@ -131,16 +128,6 @@ const HeroSection = () => {
               <Button type="submit">Transform🪄</Button>
             </Group>
           </form>
-          {!doesUserExist && (
-            <Notification
-              icon={xIcon}
-              color="red"
-              title="User doesnot exist!"
-              className={styles.notification}
-            >
-              Please check your username
-            </Notification>
-          )}
         </div>
       )}
     </Container>

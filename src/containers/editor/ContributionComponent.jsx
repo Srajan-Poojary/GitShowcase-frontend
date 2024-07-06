@@ -6,6 +6,7 @@ import * as htmlToImage from "html-to-image";
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
 import { IconX } from "@tabler/icons-react";
+import { config } from "../../../config";
 
 const ContributionComponent = ({
   currentColorPalette,
@@ -69,11 +70,9 @@ const ContributionComponent = ({
       };
 
       const response = await axios.post(
-        "https://git-showcase-backend.vercel.app/api/github/contributions",
+        `${config.backendUrl}/api/github/contributions`,
         data
       );
-
-      //  "https://git-showcase-backend.vercel.app/api/github/contributions",
 
       let contributionCountArray = [];
       response.data.contributionCountArray.forEach((week) => {
@@ -105,10 +104,10 @@ const ContributionComponent = ({
   const getUserProfile = async (username) => {
     try {
       const response = await axios.get(
-        `https://git-showcase-backend.vercel.app/api/github/avatar/${username}`
+        `${config.backendUrl}/api/github/avatar/${username}`
       );
 
-      // https://git-showcase-backend.vercel.app/api/github/avatar/cheshire137
+      // https://git-showcase-backend.vercel.app/api/github/avatar/
 
       setUserAvatar(response.data.avatarUrl);
     } catch (error) {

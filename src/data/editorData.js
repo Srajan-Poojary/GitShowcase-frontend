@@ -1,6 +1,9 @@
 import cityLights from "../assets/images/cityLight-bg.webp";
 import blueSky from "../assets/images/bluesky-bg.webp";
 import clouds from "../assets/images/clouds-bg.webp";
+import sunset from "../assets/images/sunset-bg.webp";
+import rocklandscape from "../assets/images/rocklandscape-bg.webp";
+import flower from "../assets/images/flower-bg.webp";
 
 export const colorPalette = [
   {
@@ -56,5 +59,20 @@ export const backgroundImages = [
     id: 3,
     alt: "Clouds",
     image: clouds,
+  },
+  {
+    id: 4,
+    alt: "Sunset",
+    image: sunset,
+  },
+  {
+    id: 5,
+    alt: "Rock landscape",
+    image: rocklandscape,
+  },
+  {
+    id: 6,
+    alt: "Flower",
+    image: flower,
   },
 ];
