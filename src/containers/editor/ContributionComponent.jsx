@@ -57,7 +57,7 @@ const ContributionComponent = ({
       };
 
       const response = await axios.post(
-        "https://git-showcase-server-qrirttvtx-srajans-projects-7a93540b.vercel.app/api/github/contributions",
+        "https://git-showcase-backend.vercel.app/api/github/contributions",
         data
       );
 
@@ -79,7 +79,7 @@ const ContributionComponent = ({
   const getUserProfile = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3030/api/github/avatar/cheshire137"
+        "https://git-showcase-backend.vercel.app/api/github/avatar/cheshire137"
       );
 
       setUserAvatar(response.data.avatarUrl);
