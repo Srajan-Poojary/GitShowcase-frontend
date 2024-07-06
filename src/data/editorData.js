@@ -75,4 +75,9 @@ export const backgroundImages = [
     alt: "Flower",
     image: flower,
   },
+  {
+    id: 7,
+    alt: "None",
+    image: null,
+  },
 ];

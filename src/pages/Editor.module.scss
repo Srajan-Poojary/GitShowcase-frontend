@@ -6,6 +6,13 @@
   outline: 1px solid white;
   overflow: hidden;
 
+  .downloadButtonContainer {
+    position: absolute;
+    right: 10px;
+    margin-top: 20px;
+    width: max-content;
+  }
+
   .editorPageContent {
     display: flex;
     height: 100%;
@@ -54,6 +61,30 @@
     height: 100%;
     padding: 10px;
     padding-top: 40px;
+  }
+}
+
+.typographyWrapper {
+  label {
+    color: white;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .optionContainer {
+    margin-bottom: 20px;
+  }
+
+  .flexOption {
+    display: flex;
+    align-items: center;
+
+    label {
+      width: 60%;
+      margin: unset;
+    }
   }
 }
 

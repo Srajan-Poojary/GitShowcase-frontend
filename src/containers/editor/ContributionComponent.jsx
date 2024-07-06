@@ -12,6 +12,9 @@ const ContributionComponent = ({
   currentColorPalette,
   currentBackgroundImage,
   gitComponentRef,
+  colorPickedForUsername,
+  fontWeightForUsername,
+  fontStyleForUsername,
 }) => {
   const [contributionData, setContributionData] = useState([]);
   const [boxElements, setBoxElements] = useState([]);
@@ -229,7 +232,16 @@ const ContributionComponent = ({
         <div className={styles.userNameAndGraphWrapper}>
           <div className={styles.userInfoWrapper}>
             <img src={userAvatar} alt="avatarUrl" />
-            <p className={styles.userName}>@{username}</p>
+            <p
+              className={styles.userName}
+              style={{
+                color: colorPickedForUsername,
+                fontWeight: fontWeightForUsername,
+                fontStyle: fontStyleForUsername,
+              }}
+            >
+              @{username}
+            </p>
           </div>
 
           <div className={styles.gitComponentWrapper}>

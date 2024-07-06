@@ -8,6 +8,8 @@ import {
   Tabs,
   rem,
   ActionIcon,
+  ColorPicker,
+  Select,
 } from "@mantine/core";
 import {
   IconBackground,
@@ -15,10 +17,14 @@ import {
   IconMenu2,
   IconSquareArrowDownFilled,
   IconTypography,
+  IconDownload,
 } from "@tabler/icons-react";
 import blueSky from "../assets/images/bluesky-bg.webp";
 import { saveAs } from "file-saver";
 import * as htmlToImage from "html-to-image";
+
+// import ColorPicker from "@rc-component/color-picker";
+import "@rc-component/color-picker/assets/index.css";
 
 import styles from "./Editor.module.scss";
 import Navbar from "../containers/generic/Navbar";
@@ -28,6 +34,9 @@ import ContributionComponent from "../containers/editor/ContributionComponent";
 import BackgroundImageChoice from "../components/backgroundImageChoice/BackgroundImageChoice";
 
 const Editor = () => {
+  const [userNameColorPicked, colorChange] = useState("rgba(0, 0, 0, 0.7)");
+  const [userNameFontWeight, fontWeightChange] = useState(400);
+  const [userNameFontStyle, fontStyleChange] = useState("normal");
   const [isMobileView, setIsMobileView] = useState(false);
   const [activePallet, setActivePallet] = useState({
     id: 1,
@@ -77,6 +86,7 @@ const Editor = () => {
   };
 
   const downloadImage = () => {
+    console.log("download image", gitComponentRef.current);
     if (gitComponentRef.current) {
       // Capture the image without adjusting the size or scale
       htmlToImage
@@ -95,20 +105,16 @@ const Editor = () => {
     <>
       <Container fluid className={styles.editorPageWrapper}>
         <Navbar />
-        <ActionIcon
-          variant="filled"
-          aria-label="IconSquareArrowDownFilled"
-          ml={20}
-          mt={20}
-          onClick={downloadImage}
-          pos={"absolute"}
-          right={20}
-        >
-          <IconSquareArrowDownFilled
-            style={{ width: "70%", height: "70%" }}
-            stroke={1.5}
-          />
-        </ActionIcon>
+        <div className={styles.downloadButtonContainer}>
+          <Button
+            rightSection={
+              <IconDownload size={14} pos={"absolute"} right={20} />
+            }
+            onClick={downloadImage}
+          >
+            Download
+          </Button>
+        </div>
 
         <div className={styles.editorPageContent}>
           {!isMobileView ? (
@@ -165,6 +171,56 @@ const Editor = () => {
                     </div>
                   ))}
                 </Tabs.Panel>
+                <Tabs.Panel value="typography" className={styles.tabContent}>
+                  <div className={styles.typographyWrapper}>
+                    <div className={styles.optionContainer}>
+                      <label>Username color: </label>
+                      <ColorPicker
+                        format="rgba"
+                        value={userNameColorPicked}
+                        onChange={colorChange}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.optionContainer} ${styles.flexOption}`}
+                    >
+                      <label>Font weight: </label>
+                      <Select
+                        placeholder="Pick a font weight"
+                        data={[
+                          "100",
+                          "200",
+                          "300",
+                          "400",
+                          "500",
+                          "600",
+                          "700",
+                          "800",
+                          "900",
+                        ]}
+                        defaultValue="400"
+                        allowDeselect={false}
+                        withCheckIcon={true}
+                        checkIconPosition="right"
+                        onChange={fontWeightChange}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.optionContainer} ${styles.flexOption}`}
+                    >
+                      <label>Font style: </label>
+                      <Select
+                        placeholder="Pick a font style"
+                        data={["italic", "normal", "oblique"]}
+                        defaultValue="normal"
+                        allowDeselect={false}
+                        withCheckIcon={true}
+                        checkIconPosition="right"
+                        onChange={fontStyleChange}
+                      />
+                    </div>
+                  </div>
+                </Tabs.Panel>
               </Tabs>
             </div>
           ) : (
@@ -177,7 +233,7 @@ const Editor = () => {
                 >
                   <div className={styles.sidePanel}>
                     <Tabs
-                      defaultValue="Palettes"
+                      defaultValue="Palette"
                       className={styles.tab}
                       variant="pills"
                     >
@@ -185,18 +241,18 @@ const Editor = () => {
                         <Tabs.Tab
                           value="Palette"
                           leftSection={<IconPalette style={iconStyle} />}
-                        >
-                          Color Palettes
-                        </Tabs.Tab>
+                        ></Tabs.Tab>
                         <Tabs.Tab
                           value="background"
                           leftSection={<IconBackground style={iconStyle} />}
-                        >
-                          Background
-                        </Tabs.Tab>
+                        ></Tabs.Tab>
+                        <Tabs.Tab
+                          value="typography"
+                          leftSection={<IconTypography style={iconStyle} />}
+                        ></Tabs.Tab>
                       </Tabs.List>
 
-                      <Tabs.Panel value="pallet" className={styles.tabContent}>
+                      <Tabs.Panel value="Palette" className={styles.tabContent}>
                         {colorPalette.map((palette) => (
                           <div
                             key={palette.id}
@@ -228,6 +284,59 @@ const Editor = () => {
                           </div>
                         ))}
                       </Tabs.Panel>
+                      <Tabs.Panel
+                        value="typography"
+                        className={styles.tabContent}
+                      >
+                        <div className={styles.typographyWrapper}>
+                          <div className={styles.optionContainer}>
+                            <label>Username color: </label>
+                            <ColorPicker
+                              format="rgba"
+                              value={userNameColorPicked}
+                              onChange={colorChange}
+                            />
+                          </div>
+                          <div
+                            className={`${styles.optionContainer} ${styles.flexOption}`}
+                          >
+                            <label>Font weight: </label>
+                            <Select
+                              placeholder="Pick a font weight"
+                              data={[
+                                "100",
+                                "200",
+                                "300",
+                                "400",
+                                "500",
+                                "600",
+                                "700",
+                                "800",
+                                "900",
+                              ]}
+                              defaultValue="400"
+                              allowDeselect={false}
+                              withCheckIcon={true}
+                              checkIconPosition="right"
+                              onChange={fontWeightChange}
+                            />
+                          </div>
+                          <div
+                            className={`${styles.optionContainer} ${styles.flexOption}`}
+                          >
+                            <label>Font style: </label>
+                            <Select
+                              placeholder="Pick a font style"
+                              data={["italic", "normal", "oblique"]}
+                              defaultValue="normal"
+                              allowDeselect={false}
+                              withCheckIcon={true}
+                              checkIconPosition="right"
+                              onChange={fontStyleChange}
+                            />
+                          </div>
+                        </div>
+                      </Tabs.Panel>
                     </Tabs>
                   </div>
                 </Drawer>
@@ -254,6 +363,9 @@ const Editor = () => {
               currentColorPalette={activePallet}
               gitComponentRef={gitComponentRef}
               currentBackgroundImage={activeImage}
+              colorPickedForUsername={userNameColorPicked}
+              fontWeightForUsername={userNameFontWeight}
+              fontStyleForUsername={userNameFontStyle}
             />
           </div>
         </div>
