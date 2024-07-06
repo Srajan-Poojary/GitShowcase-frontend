@@ -29,10 +29,20 @@ const ContributionComponent = ({
     "Nov",
     "Dec",
   ];
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    getUserData();
-    getUserProfile();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const username = urlParams.get("username");
+
+    console.log("username", username);
+
+    if (username) {
+      getUserData(username);
+      getUserProfile(username);
+      setUsername(username);
+    }
   }, []);
 
   const downloadImage = () => {
@@ -50,16 +60,18 @@ const ContributionComponent = ({
     }
   };
 
-  const getUserData = async () => {
+  const getUserData = async (username) => {
     try {
       const data = {
-        username: "cheshire137",
+        username: username,
       };
 
       const response = await axios.post(
         "https://git-showcase-backend.vercel.app/api/github/contributions",
         data
       );
+
+      //  "https://git-showcase-backend.vercel.app/api/github/contributions",
 
       let contributionCountArray = [];
       response.data.contributionCountArray.forEach((week) => {
@@ -79,9 +91,12 @@ const ContributionComponent = ({
   const getUserProfile = async () => {
     try {
       const response = await axios.get(
-        "https://git-showcase-backend.vercel.app/api/github/avatar/cheshire137"
+        `https://git-showcase-backend.vercel.app/api/github/avatar/${username}`
       );
 
+      // https://git-showcase-backend.vercel.app/api/github/avatar/cheshire137
+
+      console.log("response avatar", response);
       setUserAvatar(response.data.avatarUrl);
     } catch (error) {
       console.log("error", error);
@@ -202,7 +217,7 @@ const ContributionComponent = ({
         <div className={styles.userNameAndGraphWrapper}>
           <div className={styles.userInfoWrapper}>
             <img src={userAvatar} alt="avatarUrl" />
-            <p className={styles.userName}>@cheshire137</p>
+            <p className={styles.userName}>@{username}</p>
           </div>
 
           <div className={styles.gitComponentWrapper}>

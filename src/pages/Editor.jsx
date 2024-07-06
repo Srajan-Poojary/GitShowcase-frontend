@@ -65,11 +65,13 @@ const Editor = () => {
 
   const handlePaletteSelected = (pallet) => {
     setActivePallet(pallet);
+    close();
   };
 
   const handleImageSelected = (image) => {
     console.log("function running", image);
     setActiveImage(image.image);
+    close();
   };
 
   const downloadImage = () => {

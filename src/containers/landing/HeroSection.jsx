@@ -13,10 +13,15 @@ import { useForm } from "@mantine/form";
 import heroImage from "../../assets/images/heroImage.webp";
 import styles from "./HeroSection.module.scss";
 import { useNavigate } from "react-router";
+import { IconX, IconCheck } from "@tabler/icons-react";
+import { Notification, rem } from "@mantine/core";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
+
   const [isInputFormShown, setIsInputFormShown] = useState(false);
+  const [doesUserExist, setDoesUserExist] = useState(true);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -26,9 +31,33 @@ const HeroSection = () => {
 
   const formRef = useRef();
 
-  const handleSubmit = () => {
-    navigate("/editor");
+  const handleSubmit = (data) => {
+    const username = data.username;
+    fetch(`https://api.github.com/users/${username}`)
+      .then((response) => {
+        if (response.ok) {
+          console.log("User exists:", username);
+          return response.json();
+        } else if (response.status === 404) {
+          console.log("User not found:", username);
+          setDoesUserExist(false);
+        } else {
+          console.log("Some error occurred:", response.status);
+        }
+      })
+      .then((data) => {
+        if (data) {
+          console.log(data); // Display user data
+          setDoesUserExist(true);
+          navigate(`/editor?username=${username}`);
+        }
+      })
+      .catch((error) => {
+        console.error("Network error:", error);
+      });
   };
+
+  function checkGitHubUser(username) {}
 
   return (
     <Container className={styles.heroSectionWrapper}>
@@ -67,7 +96,7 @@ const HeroSection = () => {
           }}
         >
           <form
-            onSubmit={form.onSubmit((values) => console.log("values", values))}
+            onSubmit={form.onSubmit((values) => handleSubmit(values))}
             className={styles.userNameInputForm}
             ref={formRef}
           >
@@ -79,11 +108,19 @@ const HeroSection = () => {
               className={styles.textInput}
             />
             <Group justify="flex-end" mt="md">
-              <Button type="submit" onClick={handleSubmit}>
-                Transform🪄
-              </Button>
+              <Button type="submit">Transform🪄</Button>
             </Group>
           </form>
+          {!doesUserExist && (
+            <Notification
+              icon={xIcon}
+              color="red"
+              title="User doesnot exist!"
+              className={styles.notification}
+            >
+              Please check your username
+            </Notification>
+          )}
         </div>
       )}
     </Container>
