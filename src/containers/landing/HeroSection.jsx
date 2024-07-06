@@ -15,6 +15,9 @@ import styles from "./HeroSection.module.scss";
 import { useNavigate } from "react-router";
 import { IconX, IconCheck } from "@tabler/icons-react";
 import { Notification, rem } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+
+import axios from "axios";
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -30,34 +33,54 @@ const HeroSection = () => {
   });
 
   const formRef = useRef();
+  const handleSubmit = async (data) => {
+    // Most used notification props
 
-  const handleSubmit = (data) => {
     const username = data.username;
-    fetch(`https://api.github.com/users/${username}`)
-      .then((response) => {
-        if (response.ok) {
-          console.log("User exists:", username);
-          return response.json();
-        } else if (response.status === 404) {
-          console.log("User not found:", username);
-          setDoesUserExist(false);
-        } else {
-          console.log("Some error occurred:", response.status);
-        }
-      })
-      .then((data) => {
-        if (data) {
-          console.log(data); // Display user data
-          setDoesUserExist(true);
-          navigate(`/editor?username=${username}`);
-        }
-      })
-      .catch((error) => {
-        console.error("Network error:", error);
-      });
-  };
 
-  function checkGitHubUser(username) {}
+    try {
+      // Send a POST request to the API
+      const response = await axios.post(
+        `https://git-showcase-backend.vercel.app/api/github/user-exists/${username}`
+      );
+
+      // Assuming the API returns a JSON with a boolean property `exists`
+      if (response.data.exists) {
+        setDoesUserExist(true);
+        navigate(`/editor?username=${username}`);
+        // Handle logic for existing user, e.g., navigate to a user profile page
+      } else {
+        notifications.show({
+          id: "invalid-username",
+          withCloseButton: true,
+          autoClose: 5000,
+          title: "Invalid Username",
+          message: "Please enter a valid username",
+          color: "red",
+          icon: <IconX />,
+          className: "my-notification-class",
+          style: { backgroundColor: "red", color: "white" },
+          loading: false,
+        });
+        // Handle logic for non-existing user, e.g., show an error message
+      }
+    } catch (error) {
+      // Log error or display to the user
+      notifications.show({
+        id: "invalid-username",
+        withCloseButton: true,
+        autoClose: 5000,
+        title: "Something went wrong",
+        message: "Please try again after some time",
+        color: "red",
+        icon: <IconX />,
+        className: "my-notification-class",
+        style: { backgroundColor: "red" },
+        loading: false,
+      });
+      // Possibly update the UI to show that there was an error
+    }
+  };
 
   return (
     <Container className={styles.heroSectionWrapper}>

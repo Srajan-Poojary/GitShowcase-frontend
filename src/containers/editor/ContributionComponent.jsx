@@ -4,6 +4,8 @@ import { saveAs } from "file-saver";
 import * as htmlToImage from "html-to-image";
 
 import axios from "axios";
+import { notifications } from "@mantine/notifications";
+import { IconX } from "@tabler/icons-react";
 
 const ContributionComponent = ({
   currentColorPalette,
@@ -85,6 +87,18 @@ const ContributionComponent = ({
       setStartingMonth(response.data.startingMonth);
     } catch (error) {
       console.log("error", error);
+      notifications.show({
+        id: "failed-to-fetch",
+        withCloseButton: true,
+        autoClose: 5000,
+        title: "Failed to fetch your data",
+        message: "Please try again after some time",
+        color: "red",
+        icon: <IconX />,
+        className: "my-notification-class",
+        style: { backgroundColor: "red" },
+        loading: false,
+      });
     }
   };
 
@@ -96,7 +110,6 @@ const ContributionComponent = ({
 
       // https://git-showcase-backend.vercel.app/api/github/avatar/cheshire137
 
-      console.log("response avatar", response);
       setUserAvatar(response.data.avatarUrl);
     } catch (error) {
       console.log("error", error);

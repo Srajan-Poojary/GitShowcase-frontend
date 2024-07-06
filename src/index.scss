@@ -6,4 +6,20 @@ body {
   .mantine-Drawer-content {
     background-color: var(--secondary-color);
   }
+
+  .my-notification-class {
+    color: white;
+    font-family: "Poppins", sans-serif;
+
+    .mantine-Notification-title {
+      color: white;
+      font-weight: 500;
+    }
+
+    .mantine-Notification-description {
+      color: white;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
 }

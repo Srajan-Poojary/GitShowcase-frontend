@@ -8,10 +8,12 @@ import {
 import App from "./App.jsx";
 import "./index.scss";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 import Landing from "./pages/Landing.jsx";
 import Editor from "./pages/Editor.jsx";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <MantineProvider>
+    <Notifications zIndex={10000} />
+
     <React.StrictMode>
       <BrowserRouter>
         <App />
