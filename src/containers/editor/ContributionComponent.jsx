@@ -88,7 +88,7 @@ const ContributionComponent = ({
     }
   };
 
-  const getUserProfile = async () => {
+  const getUserProfile = async (username) => {
     try {
       const response = await axios.get(
         `https://git-showcase-backend.vercel.app/api/github/avatar/${username}`
