@@ -40,7 +40,7 @@ const HeroSection = () => {
 
     try {
       // Send a POST request to the API
-      const response = await axios.post(
+      const response = await axios.get(
         `https://git-showcase-backend.vercel.app/api/github/user-exists/${username}`
       );
 
@@ -62,10 +62,8 @@ const HeroSection = () => {
           style: { backgroundColor: "red", color: "white" },
           loading: false,
         });
-        // Handle logic for non-existing user, e.g., show an error message
       }
     } catch (error) {
-      // Log error or display to the user
       notifications.show({
         id: "invalid-username",
         withCloseButton: true,
@@ -78,7 +76,6 @@ const HeroSection = () => {
         style: { backgroundColor: "red" },
         loading: false,
       });
-      // Possibly update the UI to show that there was an error
     }
   };
 
