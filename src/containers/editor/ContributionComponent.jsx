@@ -57,7 +57,7 @@ const ContributionComponent = ({
       };
 
       const response = await axios.post(
-        "http://localhost:3030/api/github/contributions",
+        "https://git-showcase-server.vercel.app/api/github/contributions",
         data
       );
 

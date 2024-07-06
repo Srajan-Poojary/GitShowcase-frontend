@@ -1,11 +1,14 @@
 .editorPageWrapper {
   width: 100vw;
   height: 100vh;
-  background-color: #28282b;
+  background-color: var(--secondary-color);
   padding-inline: 0px !important;
+  outline: 1px solid white;
+  overflow: hidden;
 
   .editorPageContent {
     display: flex;
+    height: 100%;
   }
 
   .editorSection {
